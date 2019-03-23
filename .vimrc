@@ -115,6 +115,21 @@ vnoremap <S-SPACE> <C-u>
 vnoremap < <gv
 vnoremap > >gv
 " }}}1
+" for denite {{{1
+packadd denite.nvim
+nnoremap [denite] <Nop>
+nmap <C-c> [denite]
+if executable('rg')
+  call denite#custom#var('file_rec', 'command', ['rg', '--files', '--glob', '!.git'])
+  call denite#custom#var('grep', 'command', ['rg', '--threads', '1'])
+  call denite#custom#var('grep', 'recursive_opts', [])
+  call denite#custom#var('grep', 'final_opts', [])
+  call denite#custom#var('grep', 'separator', ['--'])
+  call denite#custom#var('grep', 'default_opts', ['--vimgrep', '--no-heading'])
+endif
+nnoremap <silent> [denite]f :<C-u>DeniteBufferDir -direction=topleft -cursor-wrap=true file file:new<CR>
+nnoremap <silent> [denite]g  :<C-u>Denite grep -buffer-name=search-buffer-denite<CR>
+" }}}1
 " for JavaScript {{{1
 let g:syntastic_javascript_checkers = ['eslint']
 " }}}1
