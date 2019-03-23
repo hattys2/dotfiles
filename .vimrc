@@ -118,6 +118,17 @@ vnoremap > >gv
 " for JavaScript {{{1
 let g:syntastic_javascript_checkers = ['eslint']
 " }}}1
+" for SQL {{{1
+function! s:config_sql()
+  packadd Align
+  packadd SQLUtilities
+endfunction
+
+augroup sql-plugins
+  autocmd!
+  autocmd FileType sql call s:config_sql()
+augroup END
+" }}}1
 " その他 {{{1
 "全角スペースを可視化
 source ~/.vim/external/space.vim

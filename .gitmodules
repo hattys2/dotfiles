@@ -14,5 +14,8 @@
 	path = .vim/pack/mypackage/start/syntastic
 	url = git@github.com:scrooloose/syntastic
 [submodule ".vim/pack/mypackage/SQLUtilities"]
-	path = .vim/pack/mypackage/SQLUtilities
+	path = .vim/pack/mypackage/opt/SQLUtilities
 	url = git@github.com:vim-scripts/SQLUtilities
+[submodule ".vim/pack/mypackage/opt/Align"]
+	path = .vim/pack/mypackage/opt/Align
+	url = git@github.com:vim-scripts/Align
