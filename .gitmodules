@@ -1,0 +1,18 @@
+[submodule ".vim/pack/mypackage/start/denite.nvim"]
+	path = .vim/pack/mypackage/start/denite.nvim
+	url = git@github.com:Shougo/denite.nvim.git
+[submodule ".vim/pack/mypackage/start/vim-fugitive"]
+	path = .vim/pack/mypackage/start/vim-fugitive
+	url = git@github.com:tpope/vim-fugitive
+[submodule ".vim/pack/mypackage/start/vim-surround"]
+	path = .vim/pack/mypackage/start/vim-surround
+	url = git@github.com:tpope/vim-surround
+[submodule ".vim/pack/mypackage/start/vim-javascript-syntax"]
+	path = .vim/pack/mypackage/start/vim-javascript-syntax
+	url = git@github.com:jelera/vim-javascript-syntax
+[submodule ".vim/pack/mypackage/start/syntastic"]
+	path = .vim/pack/mypackage/start/syntastic
+	url = git@github.com:scrooloose/syntastic
+[submodule ".vim/pack/mypackage/SQLUtilities"]
+	path = .vim/pack/mypackage/SQLUtilities
+	url = git@github.com:vim-scripts/SQLUtilities
