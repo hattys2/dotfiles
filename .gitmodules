@@ -16,9 +16,6 @@
 [submodule ".vim/pack/mypackage/opt/SQLUtilities"]
 	path = .vim/pack/mypackage/opt/SQLUtilities
 	url = git@github.com:vim-scripts/SQLUtilities.git
-[submodule ".vim/pack/mypackage/opt/denite.nvim"]
-	path = .vim/pack/mypackage/opt/denite.nvim
-	url = git@github.com:Shougo/denite.nvim.git
 [submodule ".vim/pack/mypackage/opt/fzf.vim"]
 	path = .vim/pack/mypackage/opt/fzf.vim
 	url = git@github.com:junegunn/fzf.vim.git
