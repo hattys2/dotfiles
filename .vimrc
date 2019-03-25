@@ -116,6 +116,10 @@ vnoremap < <gv
 vnoremap > >gv
 " }}}1
 " for denite {{{1
+packadd fzf.vim
+set runtimepath+=$HOME/.linuxbrew/bin/fzf
+source $HOME/.vim/pack/mypackage/opt/fzf/plugin/fzf.vim
+
 packadd denite.nvim
 nnoremap [denite] <Nop>
 nmap <C-c> [denite]
