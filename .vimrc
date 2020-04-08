@@ -1,8 +1,8 @@
-"基本設定 {{{1
+"基本設定
 "一旦ファイルタイプをoffにする
 filetype off
 "ctagsでタグジャンプを可能にする
-"set tags=~/.tags
+set tags=~/.tags
 ".swpファイルを生成しない
 set noswapfile
 "下部のメッセージ表示欄を２業確保
@@ -10,7 +10,8 @@ set cmdheight=2
 "ステータス行を常に表示
 set laststatus=2
 "statuslineに表示させる項目の決定
-set statusline=%y\ %F\ \|%{(&fenc!=''?&fenc:&enc).'\|'.&ff.'\|'}%m%r%=%l,%c%V%4P
+set statusline=%n\:%y%F\ \|%{(&fenc!=''?&fenc:&enc).'\|'.&ff.'\|'}%m%r%=
+set statusline+=%{fugitive#statusline()}[POS=%04l,%04v][%p%%][%L]
 highlight statusline   term=NONE cterm=NONE guifg=red ctermfg=yellow ctermbg=red
 ":のあとで補完的になる
 set wildmenu
@@ -21,7 +22,7 @@ set ignorecase
 "検索結果をハイライトして表示
 set hlsearch
 "タブを半角スペースで入力する
-set expandtab
+"set expandtab
 "インクリメンタルサーチで検索する
 set incsearch
 ":bコマンドでbufferを切り替える時に編集中ファイルを保存しなくても良くなる
@@ -29,7 +30,7 @@ set hidden
 "不可視文字を表示
 set list
 "不可視文字の表示方法
-set listchars=tab:>-,trail:-,extends:<
+set listchars=tab:»-,trail:-,extends:»,precedes:«,nbsp:%
 	hi SpecialKey ctermbg=7
 "行数を表示
 set number
@@ -40,9 +41,9 @@ set autoindent
 "改行時に入力された行の末尾に合わせて次の行のインデントを増減する
 set smartindent
 "タブの幅を指定
-set tabstop=4
+set tabstop=2
 "自動インデントでずれる幅
-set shiftwidth=4
+set shiftwidth=2
 "マウス操作をオンにする
 set mouse=a
 "ビープ音をなくす
@@ -58,9 +59,11 @@ set fileencodings=utf-8,sjis,euc-jp
 set fileformats=unix,dos,mac
 "ビジュアルモードで選択したテキストがクリップボードに入るようにする。
 set clipboard=unnamed,autoselect,unnamedplus
+"ファイルごとにオプションを設定できるようにする（モードライン）
+set modeline
 "バックスペースでインデントや行を削除可能にする。
 set backspace=indent,eol,start
-"補完のプレビューウィンドウを表示しない
+"補完の設定
 set completeopt=menuone
 "自動で補完する
 for k in split("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_",'\zs')
@@ -73,8 +76,12 @@ colorscheme molokai
 set t_Co=256
 "行数を黄色にする
 highlight LineNr ctermfg=yellow
-" }}}1
-""キーマッピング {{{1
+
+""キーマッピング
+let b:match_words = "if:endif"
+let loaded_matchparen = 1
+"<Leader>を<Space>にあてる
+let mapleader ='\<Space>'
 noremap j gj
 noremap k gk
 noremap <s-h>   ^
@@ -85,7 +92,6 @@ noremap m  %
 noremap gb gT
 nnoremap * *N
 nnoremap <ESC><ESC> :nohlsearch<CR>
-nnoremap Q <Nop>
 inoremap <C-f> <C-x><C-o>
 nnoremap あ a
 nnoremap い i
@@ -99,6 +105,8 @@ nnoremap 'w :w
 nnoremap 'q :q
 nnoremap 'wq :wq
 nnoremap q: <Nop>
+nnoremap Q <Nop>
+"vimでカーソル位置の単語とヤンクした文字列を置換する
 nnoremap <silent> ciy ciw<C-r>0<ESC>:let@/=@1<CR>:noh<CR>
 nnoremap <silent> cy   ce<C-r>0<ESC>:let@/=@1<CR>:noh<CR>
 vnoremap <silent> cy   c<C-r>0<ESC>:let@/=@1<CR>:noh<CR>
@@ -106,49 +114,24 @@ inoremap <C-j> <Down>
 inoremap <C-k> <Up>
 inoremap <C-h> <Left>
 inoremap <C-l> <Right>
-noremap <SPACE>   <PageDown>
-nnoremap <S-SPACE> <PageUp>
 map      g<SPACE>  G
 nnoremap <M-SPACE> i<SPACE><ESC><Right>
-vnoremap <SPACE>   <C-d>
-vnoremap <S-SPACE> <C-u>
 vnoremap < <gv
 vnoremap > >gv
-" }}}1
-" for fzf {{{1
-packadd fzf.vim
-set runtimepath+=$HOME/.linuxbrew/bin/fzf
-source $HOME/.vim/pack/mypackage/opt/fzf/plugin/fzf.vim
-" }}}1
-" for JavaScript {{{1
-let g:syntastic_javascript_checkers = ['eslint']
-" }}}1
-" for SQL {{{1
-function! s:config_sql()
-  packadd Align
-  packadd SQLUtilities
-endfunction
-
-augroup sql-plugins
-  autocmd!
-  autocmd FileType sql call s:config_sql()
-augroup END
-" }}}1
-" その他 {{{1
-"全角スペースを可視化
-source ~/.vim/external/space.vim
-"最後にいた場所に移動
+" open ctag in tab/vertical split
+map <C-\> *:tab split<CR>:exec("tag ".expand("<cword>"))<CR>
+map <leader><C-\> *:vsp <CR>:exec("tag ".expand("<cword>"))<CR>
+	" }}}1
+" その他
+"
 source ~/.vim/external/autocmd.vim
-if has('persistent_undo')
-    set undodir=~/.vim/undo
-    set undofile
-endif
+source ~/.vim/external/space.vim
+source ~/.vim/external/imput_col.vim
+source ~/.vim/external/undo.vim
+source ~/.vim/indent/javascript.vim
+let g:SimpleJsIndenter_BriefMode = 4
+let g:yaasita_slack_token = "xoxp-13369810642-17178395011-96388157825-aa8a61603b92ef88147bdd011c4886f9"
+let g:syntastic_javascript_checkers = ['eslint']
+let g:previm_open_cmd = 'google-chrome'
+
 filetype on
-let g:xml_syntax_folding = 1
-set foldmethod=syntax
-let g:syntastic_python_checkers = ['pyflakes', 'pep8']
-"settings for fodling in this file
-" vim: foldcolumn=3
-" vim: foldlevel=0
-" vim: foldmethod=marker
-" }}}1
